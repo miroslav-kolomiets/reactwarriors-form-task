@@ -1,6 +1,8 @@
 import React from "react";
-import Input from "./Input";
-import Select from './Select';
+import Contscts from './Contacts';
+import Registration from './Registration';
+import UserCard from './UserCard';
+import Avatar from './Avatar';
 
 import countries from '../data/countries';
 import cities from '../data/cities';
@@ -17,21 +19,22 @@ export default class App extends React.Component {
       gender: 'male',
       email: '',
       mobile: '',
-      country: '1',
-      city: '',
+      country: 1,
+      city: 'Kiyv',
       avatar: '',
       step: 1,
+      cities: [],
       errors: {
-        firstname: 'required',
-        lastname: 'required',
-        password: 'required',
-        repeatPassword: 'required',
-        gender: false,
-        email: 'required',
-        mobile: 'required',
-        country: 'required',
-        city: 'required',
-        avatar: false
+        firstname: '',
+        lastname: '',
+        password: '',
+        repeatPassword: '',
+        gender: '',
+        email: '',
+        mobile: '',
+        country: '',
+        city: '',
+        avatar: ''
       }
     };
   }
@@ -56,8 +59,6 @@ export default class App extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    console.log(event.target.getAttribute('id'))
 
     const errors = {};
 
@@ -92,9 +93,9 @@ export default class App extends React.Component {
         errors.country = "Invalid country."
       }
   
-      // if (this.state.city < 3) {
-      //   errors.city = "Invalid city."
-      // }
+      if (!this.state.city) {
+        errors.city = "Invalid city."
+      }
     } else if (this.state.step === 3) {
       
       if (this.state.avatar === false ) {
@@ -125,148 +126,87 @@ export default class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    let citiesNames = this.getCities();
+
+    this.setState({
+      cities: citiesNames
+    })
+  }
+
+  getCities(country) {
+    let citiesNames = [];
+    const countryVal = country || this.state.country;
+    for (let item in cities) {
+      if (cities[item].country === Number(countryVal)) {
+        citiesNames.push(cities[item]);
+      }
+    }
+    return citiesNames;
+  }
+
+
+  handleCitySelectChange = event => {
+
+    let citiesNames = this.getCities(event.target.value);
+
+    this.setState({
+      country: event.target.value,
+      cities: citiesNames
+    })
+  }
+
   render() {
     return (
       <div className="form-container card">
         <form className="form card-body">
           {
             this.state.step === 1 ? 
-              (<div className="step-1">
-                <Input 
-                  className="form-control"
-                  type="text" 
-                  label="Firstname" 
-                  name="firstname" 
-                  value={this.state.firstname}
-                  error={this.state.errors.firstname} 
-                  handleChange={this.handleChange}
-                />
-                <Input
-                  className="form-control"
-                  type="text" 
-                  label="Lastname" 
-                  name="lastname" 
-                  value={this.state.lastname}
-                  error={this.state.errors.lastname} 
-                  handleChange={this.handleChange}
-                />
-                <Input
-                  className="form-control" 
-                  type="password" 
-                  label="Password" 
-                  name="password"
-                  value={this.state.password}
-                  error={this.state.errors.password} 
-                  handleChange={this.handleChange}
-                />
-                <Input
-                  className="form-control" 
-                  type="password" 
-                  label="Repeat password" 
-                  name="repeatPassword"
-                  value={this.state.repeatPassword} 
-                  error={this.state.errors.repeatPassword} 
-                  handleChange={this.handleChange}
-                />
-                <div className="form-check">
-                  <Input
-                    className="form-check-inline"
-                    type="radio"
-                    id="male"
-                    label="Male"
-                    labelClassName="form-check-label"
-                    name="gender" 
-                    value="male"
-                    checked={this.state.gender === 'male'}
-                    handleChange={this.handleChange}
-                  />
-                </div>
-                <div className="form-check">
-                  <Input
-                    className="form-check-inline" 
-                    type="radio"
-                    id="female"
-                    label="Female"
-                    labelClassName="form-check-label"
-                    name="gender" 
-                    value="female"
-                    checked={this.state.gender === 'female'}
-                    handleChange={this.handleChange}
-                  />
-                </div>
-              </div>) : null
+              (<Registration 
+                errors={this.state.errors}
+                firstname={this.state.firstname}
+                lastname={this.state.lastname}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                password={this.state.password}
+                repeatPassword={this.state.repeatPassword}
+                gender={this.state.gender}
+              />) : null
           }
           {
             this.state.step === 2 ? 
-              (<div className="step-2">
-                <Input
-                  className="form-control" 
-                  type="text" 
-                  label="Email" 
-                  name="email" 
-                  value={this.state.email}
-                  error={this.state.errors.email} 
-                  handleChange={this.handleChange}
-                />
-                <Input
-                  className="form-control" 
-                  type="text" 
-                  label="Mobile" 
-                  name="mobile"
-                  value={this.state.mobile}
-                  error={this.state.errors.mobile} 
-                  handleChange={this.handleChange}
-                />
-                <Select
-                  className="form-control" 
-                  name="country" 
-                  id="country" 
-                  label="Country" 
-                  handleChange={this.handleChange} 
-                  data={countries}
-                />
-              </div>) : null
+              (<Contscts
+                email={this.state.email}
+                errors={this.state.errors}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                mobile={this.state.mobile}
+                handleCitySelectChange={this.handleCitySelectChange}
+                cities={this.state.cities}
+                countries={countries}
+              />) : null
           }
           {
             this.state.step === 3 ? 
-              (<div className="step-3">
-                <Input
-                  className="form-control-file" 
-                  type="file" 
-                  label="Avatar" 
-                  name="avatar" 
-                  error={this.state.errors.repeatPassword} 
-                  handleChange={this.handleChangeAvatar}
-                />
-              </div>) : null
+              <Avatar 
+                handleSubmit={this.handleSubmit}
+                handleChangeAvatar={this.handleChangeAvatar} 
+                errors={this.state.errors}
+              /> : null
           }
           {
             this.state.step === 4 ? 
-              (<div className="card">
-                <img src={this.state.avatar} className="card-img-top"></img>
-                <div className="card-body">
-                  <div className="card-title">Firs name: {this.state.firstname}</div>
-                  <div className="card-title">Last name: {this.state.lastname}</div>
-                  <div className="card-title">Email: {this.state.email}</div>
-                  <div className="card-title">Phone: {this.state.mobile}</div>
-                  <div className="card-title">Country: {this.state.country}{this.state.city}</div>
-                </div>
-              </div>) : null
+              <UserCard 
+                handleSubmit={this.handleSubmit}
+                avatar={this.state.avatar}
+                firstname={this.state.firstname}
+                lastname={this.state.lastname}
+                email={this.state.email}
+                mobile={this.state.mobile}
+                country={this.state.country}
+                city={this.state.city}
+              /> : null
           }
-            <Input 
-              className="btn btn-primary btn-md btn-block"
-              id="previous"
-              type="button" 
-              value="Previous" 
-              onClick={this.handleSubmit}
-            />
-            <Input 
-              className="btn btn-primary btn-md btn-block"
-              id="next"
-              type="button" 
-              value="Next" 
-              onClick={this.handleSubmit}
-            />
         </form>
       </div>
     );

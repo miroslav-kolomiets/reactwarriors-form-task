@@ -3,14 +3,16 @@ import React from "react";
 export default class Input extends React.Component {
 
   render() {
-    const {id, className, labelClassName, type, name, label, value, onClick, handleChange, error, checked} = this.props;
+    const {id, className, labelclassname, type, name, label, value, onClick, handleChange, error, checked} = this.props;
 
     return (
       <div className="form-group">
-        <label labelClassName={labelClassName}>{label}</label>
+        <label className={labelclassname} htmlFor={id}>{label}</label>
         <input
           className={className} 
           id={id}
+          htmlFor={id}
+          autoComplete={id}
           type={type} 
           name={name}
           value={value}

@@ -16,7 +16,7 @@ export default class Select extends React.Component {
             className={className}
           >
             {data.map((item) => {
-                return <option value={item.id} key={item.id}>{item.name}</option>
+                return <option value={item.id} key={item.id || item.name}>{item.name}</option>
             })}
           </select>
       </label>
