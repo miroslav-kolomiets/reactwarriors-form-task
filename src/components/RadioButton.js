@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Input extends React.Component {
+export default class RadioButton extends React.Component {
   render() {
     const {
       id,
@@ -18,9 +18,6 @@ export default class Input extends React.Component {
 
     return (
       <div className="form-group">
-        <label className={labelClassName} htmlFor={id}>
-          {label}
-        </label>
         <input
           className={className}
           id={id}
@@ -33,6 +30,9 @@ export default class Input extends React.Component {
           checked={checked}
           onChange={handleChange}
         />
+        <label className={labelClassName} htmlFor={id}>
+          {label}
+        </label>
         {error && <div className="error invalid-feedback">{error}</div>}
       </div>
     )

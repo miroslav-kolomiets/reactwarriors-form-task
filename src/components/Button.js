@@ -5,7 +5,7 @@ export default class Input extends React.Component {
     const {
       id,
       className,
-      labelClassName,
+      labelclassname,
       type,
       name,
       label,
@@ -18,21 +18,22 @@ export default class Input extends React.Component {
 
     return (
       <div className="form-group">
-        <label className={labelClassName} htmlFor={id}>
+        <label className={labelclassname} htmlFor={id}>
           {label}
         </label>
-        <input
+        <button
           className={className}
           id={id}
           htmlFor={id}
           autoComplete={id}
           type={type}
           name={name}
-          value={value}
           onClick={onClick}
           checked={checked}
           onChange={handleChange}
-        />
+        >
+          {value}
+        </button>
         {error && <div className="error invalid-feedback">{error}</div>}
       </div>
     )
