@@ -11,7 +11,7 @@ export default class Input extends React.Component {
       label,
       value,
       onClick,
-      handleChange,
+      onChange,
       error,
       checked,
     } = this.props
@@ -30,7 +30,7 @@ export default class Input extends React.Component {
           name={name}
           onClick={onClick}
           checked={checked}
-          onChange={handleChange}
+          onChange={onChange}
         >
           {value}
         </button>

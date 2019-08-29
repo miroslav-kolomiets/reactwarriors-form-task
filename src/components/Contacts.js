@@ -1,19 +1,17 @@
 import React from 'react'
 import Input from './Input'
-import Navigation from './Navigation'
 
 import countries from '../data/countries'
 import cities from '../data/cities'
 
 export default class Contacts extends React.Component {
-  getCities(country) {
+  getCities() {
     let citiesNames = []
     for (let item in cities) {
       if (cities[item].country === Number(this.props.country)) {
         citiesNames.push(cities[item])
       }
     }
-    console.log(citiesNames)
     return citiesNames.map((item, key) => {
       return (
         <option value={item.name} key={key}>
@@ -24,17 +22,7 @@ export default class Contacts extends React.Component {
   }
 
   render() {
-    const {
-      email,
-      errors,
-      step,
-      country,
-      city,
-      handleChange,
-      handleSubmit,
-      previousStep,
-      mobile,
-    } = this.props
+    const { email, errors, country, city, onChange, mobile } = this.props
 
     return (
       <div className="contscts">
@@ -46,7 +34,7 @@ export default class Contacts extends React.Component {
           name="email"
           value={email}
           error={errors.email}
-          handleChange={handleChange}
+          onChange={onChange}
         />
         <Input
           className="form-control"
@@ -56,14 +44,14 @@ export default class Contacts extends React.Component {
           name="mobile"
           value={mobile}
           error={errors.mobile}
-          handleChange={handleChange}
+          onChange={onChange}
         />
         <div className="form-group">
           <label htmlFor="country">
             Country
             <select
               id="country"
-              onChange={handleChange}
+              onChange={onChange}
               name="country"
               value={country}
               className="form-control"
@@ -86,7 +74,7 @@ export default class Contacts extends React.Component {
             Сities
             <select
               id="city"
-              onChange={handleChange}
+              onChange={onChange}
               name="city"
               value={city}
               className="form-control"
@@ -99,11 +87,6 @@ export default class Contacts extends React.Component {
             )}
           </label>
         </div>
-        <Navigation
-          previousStep={previousStep}
-          handleSubmit={handleSubmit}
-          step={step}
-        />
       </div>
     )
   }

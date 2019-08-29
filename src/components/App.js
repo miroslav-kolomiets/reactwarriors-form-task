@@ -3,6 +3,7 @@ import Contacts from './Contacts'
 import Registration from './Registration'
 import UserCard from './UserCard'
 import Avatar from './Avatar'
+import Navigation from './Navigation'
 
 export default class App extends React.Component {
   constructor() {
@@ -20,7 +21,6 @@ export default class App extends React.Component {
       city: '',
       avatar: '',
       step: 1,
-      cities: [],
       errors: {
         firstName: '',
         lastName: '',
@@ -36,19 +36,17 @@ export default class App extends React.Component {
     }
   }
 
-  handleChange = event => {
+  onChange = event => {
     const name = event.target.name
     const value = event.target.value
 
     this.setState({
       [name]: value,
     })
-
-    console.log(name, value)
   }
 
-  validationForm = errors => {
-    console.log(errors)
+  validationForm = () => {
+    const errors = {}
     if (this.state.step === 1) {
       if (this.state.firstName.length < 5) {
         errors.firstName = 'Must be 5 characters or more.'
@@ -86,6 +84,7 @@ export default class App extends React.Component {
         errors.avatar = 'Required.'
       }
     }
+    return errors
   }
 
   previousStep = () => {
@@ -97,9 +96,7 @@ export default class App extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
 
-    const errors = {}
-
-    this.validationForm(errors)
+    const errors = this.validationForm()
 
     if (Object.keys(errors).length > 0) {
       this.setState({
@@ -126,7 +123,6 @@ export default class App extends React.Component {
       city: '',
       avatar: '',
       step: 1,
-      cities: [],
       errors: {
         firstName: '',
         lastName: '',
@@ -166,7 +162,7 @@ export default class App extends React.Component {
               errors={errors}
               firstName={firstName}
               lastName={lastName}
-              handleChange={this.handleChange}
+              onChange={this.onChange}
               handleSubmit={this.handleSubmit}
               password={password}
               repeatPassword={repeatPassword}
@@ -178,12 +174,11 @@ export default class App extends React.Component {
               step={step}
               email={email}
               errors={errors}
-              handleChange={this.handleChange}
+              onChange={this.onChange}
               handleSubmit={this.handleSubmit}
               previousStep={this.previousStep}
               mobile={mobile}
               country={this.state.country}
-              handleCitySelectChange={this.handleCitySelectChange}
             />
           )}
           {step === 3 && (
@@ -191,7 +186,7 @@ export default class App extends React.Component {
               step={step}
               handleSubmit={this.handleSubmit}
               previousStep={this.previousStep}
-              handleChange={this.handleChange}
+              onChange={this.onChange}
               errors={errors}
             />
           )}
@@ -206,11 +201,17 @@ export default class App extends React.Component {
               lastName={lastName}
               email={email}
               mobile={mobile}
-              country={country}
+              countryId={country}
               city={city}
             />
           )}
         </form>
+        <Navigation
+          previousStep={this.previousStep}
+          handleSubmit={this.handleSubmit}
+          resetForm={this.resetForm}
+          step={step}
+        />
       </div>
     )
   }

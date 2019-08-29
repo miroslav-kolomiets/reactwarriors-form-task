@@ -7,7 +7,7 @@ export default class Navigation extends React.Component {
 
     return (
       <div className="navigation">
-        {step !== 4 && (
+        {step !== 4 ? (
           <div>
             <Button
               className={`btn btn-primary btn-md btn-block ${step === 1 &&
@@ -27,8 +27,7 @@ export default class Navigation extends React.Component {
               onClick={handleSubmit}
             />
           </div>
-        )}
-        {step === 4 && (
+        ) : (
           <div>
             <Button
               className={`btn btn-secondary btn-md btn-block ${step === 4 &&

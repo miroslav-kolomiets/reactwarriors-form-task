@@ -1,17 +1,14 @@
 import React from 'react'
 import Input from './Input'
 import RadioButton from './RadioButton'
-import Navigation from './Navigation'
 
 export default class Registration extends React.Component {
   render() {
     const {
       firstName,
       errors,
-      step,
       lastName,
-      handleChange,
-      handleSubmit,
+      onChange,
       password,
       repeatPassword,
       gender,
@@ -27,7 +24,7 @@ export default class Registration extends React.Component {
           name="firstName"
           value={firstName}
           error={errors.firstName}
-          handleChange={handleChange}
+          onChange={onChange}
         />
         <Input
           className="form-control"
@@ -37,7 +34,7 @@ export default class Registration extends React.Component {
           name="lastName"
           value={lastName}
           error={errors.lastName}
-          handleChange={handleChange}
+          onChange={onChange}
         />
         <Input
           className="form-control"
@@ -47,7 +44,7 @@ export default class Registration extends React.Component {
           name="password"
           value={password}
           error={errors.password}
-          handleChange={handleChange}
+          onChange={onChange}
         />
         <Input
           className="form-control"
@@ -57,7 +54,7 @@ export default class Registration extends React.Component {
           name="repeatPassword"
           value={repeatPassword}
           error={errors.repeatPassword}
-          handleChange={handleChange}
+          onChange={onChange}
         />
         <div className="form-check">
           <RadioButton
@@ -69,7 +66,7 @@ export default class Registration extends React.Component {
             name="gender"
             value="male"
             checked={gender === 'male'}
-            handleChange={handleChange}
+            onChange={onChange}
           />
         </div>
         <div className="form-check">
@@ -82,10 +79,9 @@ export default class Registration extends React.Component {
             name="gender"
             value="female"
             checked={gender === 'female'}
-            handleChange={handleChange}
+            onChange={onChange}
           />
         </div>
-        <Navigation handleSubmit={handleSubmit} step={step} />
       </div>
     )
   }

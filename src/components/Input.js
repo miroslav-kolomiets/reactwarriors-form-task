@@ -11,7 +11,7 @@ export default class Input extends React.Component {
       label,
       value,
       onClick,
-      handleChange,
+      onChange,
       error,
       checked,
     } = this.props
@@ -31,7 +31,7 @@ export default class Input extends React.Component {
           value={value}
           onClick={onClick}
           checked={checked}
-          onChange={handleChange}
+          onChange={onChange}
         />
         {error && <div className="error invalid-feedback">{error}</div>}
       </div>

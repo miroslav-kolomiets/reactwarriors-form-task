@@ -1,21 +1,29 @@
 import React from 'react'
-import Navigation from './Navigation'
+import countries from '../data/countries'
 
 export default class UserCard extends React.Component {
+  getCountry = country => {
+    let countryName = ''
+    countries.find(elem => {
+      if (elem.id === country) {
+        countryName = elem.name
+      }
+    })
+
+    return countryName
+  }
   render() {
     const {
       avatar,
       firstName,
       lastName,
-      step,
       email,
-      resetForm,
       mobile,
-      previousStep,
-      country,
+      countryId,
       city,
-      handleSubmit,
     } = this.props
+
+    let countryName = this.getCountry(countryId)
 
     return (
       <div className="card">
@@ -25,16 +33,9 @@ export default class UserCard extends React.Component {
           <div className="card-title">Last name: {lastName}</div>
           <div className="card-title">Email: {email}</div>
           <div className="card-title">Phone: {mobile}</div>
-          <div className="card-title">
-            Country: {country} City: {city}
-          </div>
+          <div className="card-title">Country: {countryName}</div>
+          <div className="card-title">City: {city}</div>
         </div>
-        <Navigation
-          previousStep={previousStep}
-          handleSubmit={handleSubmit}
-          resetForm={resetForm}
-          step={step}
-        />
       </div>
     )
   }

@@ -1,13 +1,12 @@
 import React from 'react'
 import Input from './Input'
-import Navigation from './Navigation'
 
 export default class Avatar extends React.Component {
-  handleChangeAvatar = event => {
+  onChangeAvatar = event => {
     const reader = new FileReader()
 
     reader.onload = event => {
-      this.props.handleChange({
+      this.props.onChange({
         target: {
           name: 'avatar',
           value: event.target.result,
@@ -19,7 +18,7 @@ export default class Avatar extends React.Component {
   }
 
   render() {
-    const { previousStep, handleSubmit, errors, step } = this.props
+    const { errors } = this.props
 
     return (
       <div className="avatar">
@@ -29,12 +28,7 @@ export default class Avatar extends React.Component {
           label="Avatar"
           name="avatar"
           error={errors.avatar}
-          handleChange={this.handleChangeAvatar}
-        />
-        <Navigation
-          previousStep={previousStep}
-          handleSubmit={handleSubmit}
-          step={step}
+          onChange={this.onChangeAvatar}
         />
       </div>
     )

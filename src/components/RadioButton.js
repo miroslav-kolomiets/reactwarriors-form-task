@@ -11,7 +11,7 @@ export default class RadioButton extends React.Component {
       label,
       value,
       onClick,
-      handleChange,
+      onChange,
       error,
       checked,
     } = this.props
@@ -28,7 +28,7 @@ export default class RadioButton extends React.Component {
           value={value}
           onClick={onClick}
           checked={checked}
-          onChange={handleChange}
+          onChange={onChange}
         />
         <label className={labelClassName} htmlFor={id}>
           {label}

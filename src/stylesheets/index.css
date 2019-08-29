@@ -1,5 +1,5 @@
 body {
-  background: #fdfdfd; 
+  background: #fdfdfd;
 }
 
 .form-container {
@@ -7,9 +7,14 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 460px; 
+  width: 460px;
 }
 
 .invalid-feedback {
-  display: block; 
+  display: block;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  pointer-events: none;
 }
